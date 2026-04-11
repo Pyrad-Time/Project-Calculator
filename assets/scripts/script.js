@@ -57,7 +57,8 @@ array.forEach(button => {
         if(dataAction === "operator--equal") {
             switch(operator) {
                 case "+": 
-                const result = add(firstNumber, secondNumber)
+                    const result = add(firstNumber, secondNumber)
+                    console.log(firstNumber + "+" + secondNumber + "=" + result)
                 break
             }
         }

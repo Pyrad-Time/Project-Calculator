@@ -29,3 +29,21 @@ button {
 }
 
 
+.container {
+    width:1200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: aqua;
+}
+
+.grid {
+    display: grid;
+}
+
+.calculator__container {
+    width: 500px; 
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
