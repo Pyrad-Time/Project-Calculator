@@ -30,14 +30,23 @@ button {
 
 
 .container {
-    width:1200px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 968px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
     background-color: aqua;
 }
 
 .grid {
     display: grid;
+}
+
+.main__container {
+    background-color: rgb(248, 247, 240);
+    min-height: 100vh;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.39);
 }
 
 .calculator__container {
