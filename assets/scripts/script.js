@@ -3,25 +3,28 @@ const buttons = document.getElementsByClassName("calculator__button")
 const arrayButtons = [...buttons]
 
 
-
+let state = {
+    current: '', // numero atual
+    previous: '',   // numero anterior
+    operator: null
+}
 
 
 function add (a, b) {
-    
-    result = Number(a) + Number(b)
-    return result
+    let add = Number(a) + Number(b)
+    state.current = add
 }
 function subtract (a, b) {
-    result = Number(a) - Number(b)
-    return result
+    let subtract = (Number(a)) - (Number(b))
+    state.current = subtract
 }
 function multiply (a, b) {
-    result = Number(a) * Number(b)
-    return result
+    let multiply = Number(a) * Number(b)
+    state.current = multiply
 }
 function divide (a, b) {
-    result = Number(a) / Number(b)
-    return result
+    let divide = Number(a) / Number(b)
+    state.current = divide
 }   
 
 function percent (a, b) {
@@ -31,96 +34,106 @@ function percent (a, b) {
     return result
 }
 
-let displayValue = ""
+function clean () {
+    state = {
+        current: '',
+        previous: '',
+        operator: null
+    }
+}
 
-let firstSentence = ''
-let operator = null
-let secondSentence = ''
-let result = 0
+
+function setOperator(dataAction) {
+    switch (dataAction) {
+        case "operator--add":
+            state.operator = "+"
+            setPrevious()
+            break;
+    
+        case "operator--subtract":
+            state.operator = "-"
+            setPrevious()
+            break;
+
+        case "operator--multiply":
+            state.operator = "x"
+            setPrevious()
+            break;
+
+        case "operator--divide":
+            state.operator = "/"
+            setPrevious()
+            break;
+
+        case "operator--percent":
+            state.operator = "%"
+            setPrevious()
+            break;
+        case "operator--clean":
+            clean()
+            break
+            
+    }
+}
+
+function setCurrent(number) {
+    return state.current = state.current + number
+}
+
+function setPrevious() {
+    state.previous = state.current
+    state.current = ''
+}
+
+function render() {
+    if(state.current !== '') {
+        display.textContent = state.current
+    }
+    if(state.operator !== null && state.previous !== '') {
+        display.textContent = `${state.previous} ${state.operator}`
+    }
+
+    if(state.current !== '' && state.operator !== null && state.previous !== '') {
+        display.textContent = `${state.previous} ${state.operator} ${state.current}`
+    }
+    
+}
 
 arrayButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const buttonItem = e.currentTarget
         const dataAction = buttonItem.dataset.action
-        const dataNumber = buttonItem.dataset.number
-        const number = Number(dataNumber)
-        
-       
-
-
-        if (dataAction === "operator--add") {
-            operator = "+"
-        }
-        
-        if (dataAction === "operator--subtract") {
-            operator = "-"
-        }
-        
-        if (dataAction === "operator--multiply") {
-            operator = "x"
-        }
-        
-        if (dataAction === "operator--divide") {
-            operator = "/"
-        }
-
-        if (dataAction === "operator--percent") {
-            operator = "%"
-        }
-
-        
-        if (dataNumber !== undefined) {
-            if(operator === null){
-                firstSentence += number
-            } else {
-                secondSentence = secondSentence + number
-            }
-        }
-          
-console.log(firstSentence)
-console.log(secondSentence)
-       
+        const number = buttonItem.dataset.number
+        console.log(number)
         if(dataAction === "operator--equal") {
-            //console.log(firstNumber)
-            //console.log(secondNumber)
-            //console.log(operator)
-            switch (operator) {
-                case '+':
-                    result = add(firstSentence, secondSentence)
-                    display.textContent = result
-                    firstSentence = result
-                    secondSentence = ''
-                    break;
+            if (state.operator === "+")
+                add(state.previous, state.current)
+            if (state.operator === "-")
+                subtract(state.previous, state.current)
+            if (state.operator === "/")
+                divide(state.previous, state.current)
+            if (state.operator === "x")
+                multiply(state.previous, state.current)
+            if (state.operator === "%")
+                percent(state.previous, state.current)
             
-                case '-':
-                    result = subtract(firstSentence, secondSentence)
-                    display.textContent = result
-                    firstSentence = result
-                    secondSentence = ''
-                    break;
-                case '/':
-                    result = divide(firstSentence, secondSentence)
-                    display.textContent = result
-                    firstSentence = result
-                    secondSentence = ''
-                    break;
-                case 'x':
-                    result = multiply(firstSentence, secondSentence)
-                    display.textContent = result
-                    firstSentence = result
-                    secondSentence = ''
-                    break;
-                case '%':
-                    result = percent(firstSentence, secondSentence)
-                    display.textContent = result
-                    firstSentence = result
-                    secondSentence = ''
-                    break;
-            }
-
         }
 
+        if (number || number === 0) {
+                setCurrent(number)
+        }
+        
+        if(dataAction) {
+            if(state.operator !== null) {
+                state.operator = null
+            }
+            setOperator(dataAction)
+         
+            }
 
+        console.log(state)
+
+        render()
     })
 });
 
