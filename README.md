@@ -51,7 +51,8 @@ This project was built as a learning exercise to practice JavaScript fundamental
 
 ## 📷 Preview
 
-//////
+<img width="516" height="601" alt="ProjectPreview-Calculator" src="https://github.com/user-attachments/assets/dff757dc-4730-4c48-9947-0d991d431203" />
+
 
 ---
 
